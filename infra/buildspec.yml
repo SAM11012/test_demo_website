@@ -3,34 +3,12 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo Installing source NPM dependencies...
       - npm install
-
-  pre_build:
-    commands:
-      - echo Installing dependencies...
-      - npm install
-
   build:
     commands:
-      - echo Building the Next.js application...
       - npm run build
-
-  # post_build:
-  #   commands:
-  #     - echo Starting deployment process...
-  #     # Adjust the following command to match your deployment process
-  #     # For example, if you are deploying to S3:
-  #     - aws s3 sync .next/static s3://your-s3-bucket-name/static
-  #     - aws s3 cp .next/server/pages s3://your-s3-bucket-name/pages --recursive
-  #     - echo Deployment complete.
-
+      - npm run export
 artifacts:
   files:
     - '**/*'
-  base-directory: '/out'
-  discard-paths: yes
-
-cache:
-  paths:
-    - node_modules/**/*
+  base-directory: out
