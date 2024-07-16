@@ -12,3 +12,12 @@ artifacts:
   files:
     - '**/*'
   base-directory: out
+  post_build:
+    on-failure: ABORT
+    commands:
+      - echo "Initializing deployment"
+      - cd build
+      - echo "Started sync in s3://demo-website-bucket123 bucket"
+      - aws s3 sync . "s3://demo-website-bucket123" --delete --exact-timestamps --follow-symlinks --only-show-errors
+      - aws cloudfront create-invalidation --distribution-id E2LL4MJEVXGH8I --paths "/*"
+      - echo "Everything done !!!"
