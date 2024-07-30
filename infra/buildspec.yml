@@ -11,7 +11,7 @@ phases:
       - echo "Initializing deployment"
       - cd out
       - echo "Started sync in s3://demo-website-bucket123 bucket"
-      - aws s3 sync . "s3://demo-website-bucket123" --delete --exact-timestamps --follow-symlinks --only-show-errors
+      - aws s3 sync . "s3://demo-website-bucket123"--delete --exact-timestamps --follow-symlinks --only-show-errors --exclude "media-cdn/*"
       - aws cloudfront create-invalidation --distribution-id E2LL4MJEVXGH8I --paths "/*"
       - echo "Everything done !!!"
 artifacts:
